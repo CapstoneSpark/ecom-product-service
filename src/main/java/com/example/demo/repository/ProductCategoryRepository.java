@@ -12,6 +12,12 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
     @Query("SELECT pc FROM ProductCategory pc WHERE pc.product.productId = :productId")
     List<ProductCategory> findByProductId(@Param("productId") Long productId);
 
-    @Query("SELECT pc FROM ProductCategory pc WHERE pc.category.categoryId = :categoryId")
+//    @Query("SELECT pc FROM ProductCategory pc WHERE pc.category.categoryId = :categoryId")
+//    List<ProductCategory> findByCategoryId(@Param("categoryId") Long categoryId);
+    
+    @Query("SELECT pc FROM ProductCategory pc JOIN FETCH pc.product p JOIN FETCH pc.category c WHERE c.categoryId = :categoryId")
     List<ProductCategory> findByCategoryId(@Param("categoryId") Long categoryId);
+
+
+
 }

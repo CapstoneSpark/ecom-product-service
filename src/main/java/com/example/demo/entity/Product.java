@@ -1,19 +1,20 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
+@Entity@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "productCategories"})
 @Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long productId;  // PK
+    private Long productId;
 
     @Column(nullable = false)
     private String name;
@@ -40,7 +41,9 @@ public class Product {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    
     private Set<ProductCategory> productCategories = new HashSet<>();
+
 
     public Product() {}
 
@@ -55,7 +58,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // getters & setters
+    // Getters & Setters
     public Long getProductId() { return productId; }
     public void setProductId(Long productId) { this.productId = productId; }
 

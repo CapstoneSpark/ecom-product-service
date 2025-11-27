@@ -13,6 +13,8 @@ public class ProductCatalogServiceApplication {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
         System.setProperty("DB_USER", dotenv.get("DB_USER"));
         System.setProperty("DB_PASS", dotenv.get("DB_PASS"));
+        System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
+        System.setProperty("JWT_EXPIRATION", dotenv.get("JWT_EXPIRATION"));
         SpringApplication.run(ProductCatalogServiceApplication.class, args);
     }
 
